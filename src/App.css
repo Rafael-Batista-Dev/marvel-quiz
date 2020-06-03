@@ -108,7 +108,7 @@ main {
   background-position: center center;
   display: flex;
   justify-content: space-between;
-  height: 500px;
+  height: 481px;
 }
 
 .startingImg {
@@ -175,6 +175,7 @@ main {
 footer {
   display: flex;
   justify-content: center;
+  background: #333030;
 }
 
 .footer-container {
