@@ -1,13 +1,27 @@
 import app from "firebase/app";
 
+import "firebase/auth";
+
 const config = {
-  // suas credenciais
+  //Suas credenciais
 };
 
 class Firebase {
   constructor() {
     app.initializeApp(config);
+    this.auth = app.auth();
   }
+
+  //inscrição
+  signupUser = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
+
+  // conexão
+  loginUser = (email, password) =>
+    this.auth.signInWithEmailAndPassword(email, password);
+
+  // desconexão
+  signoutUser = () => this.auth.signOut();
 }
 
 export default Firebase;
