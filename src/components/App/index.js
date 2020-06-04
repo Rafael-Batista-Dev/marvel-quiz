@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "../Header";
 import Welcome from "../Welcome";
 import Landing from "../Landing";
-import Footer from "../Footer";
 import Login from "../Login";
 import Signup from "../Signup";
 import ErrorPage from "../ErrorPage";
@@ -22,7 +21,6 @@ function App() {
         <Route path="/signup" component={Signup} />
         <Route component={ErrorPage} />
       </Switch>
-      <Footer />
     </Router>
   );
 }
