@@ -253,7 +253,8 @@ footer {
 }
 
 .formBoxRight {
-  flex: 0 1 50%;
+  margin-top: 2rem;
+  flex: 0 1 45%;
 }
 
 .formBoxRight span {
@@ -268,6 +269,7 @@ footer {
 .formContent {
   width: 100%;
   padding: 20px;
+  margin-top: -2.27rem;
   box-sizing: border-box;
 }
 
@@ -287,8 +289,7 @@ footer {
   width: 100%;
   padding: 10px 0;
   font-size: 17px;
-  color: var(--red-color);
-  text-transform: uppercase;
+  color: #fff;
   font-weight: bold;
   margin-bottom: 30px;
   border: none;
@@ -330,7 +331,7 @@ footer {
   color: var(--white-color);
   padding: 7px;
   font-size: 15px;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .formContent button:hover {
