@@ -24,10 +24,16 @@ const Signup = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { email, password } = loginData;
+    const { email, password, apelido } = loginData;
     firebase
       .signupUser(email, password)
-      .then((user) => {
+      .then((authUser) => {
+        return firebase.user(authUser.user.uid).set({
+          apelido,
+          email,
+        });
+      })
+      .then(() => {
         setLoginData({ ...data });
         props.history.push("/");
       })

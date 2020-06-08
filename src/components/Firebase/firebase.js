@@ -2,6 +2,8 @@ import app from "firebase/app";
 
 import "firebase/auth";
 
+import "firebase/firestore";
+
 const config = {
   //Suas credenciais
 };
@@ -9,6 +11,7 @@ class Firebase {
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
+    this.db = app.firestore();
   }
 
   //inscrição
@@ -24,6 +27,9 @@ class Firebase {
 
   // Recuperar senha
   passwordReset = (email) => this.auth.sendPasswordResetEmail(email);
+
+  // firestore
+  user = (uid) => this.db.doc(`users/${uid}`);
 }
 
 export default Firebase;
