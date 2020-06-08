@@ -253,7 +253,8 @@ footer {
 }
 
 .formBoxRight {
-  margin-top: 2rem;
+  margin-top: 4rem;
+  margin-right: 6rem;
   flex: 0 1 45%;
 }
 

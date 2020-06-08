@@ -5,7 +5,7 @@ import { FirebaseContext } from "../Firebase";
 const Signup = (props) => {
   const firebase = useContext(FirebaseContext);
 
-  console.log(firebase);
+  //console.log(firebase);
 
   const data = {
     apelido: "",
@@ -29,6 +29,7 @@ const Signup = (props) => {
       .signupUser(email, password)
       .then((user) => {
         setLoginData({ ...data });
+        props.history.push("/");
       })
       .catch((error) => {
         setError(error);
