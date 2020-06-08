@@ -5,7 +5,6 @@ import "firebase/auth";
 const config = {
   //Suas credenciais
 };
-
 class Firebase {
   constructor() {
     app.initializeApp(config);
@@ -22,6 +21,9 @@ class Firebase {
 
   // desconexão
   signoutUser = () => this.auth.signOut();
+
+  // Recuperar senha
+  passwordReset = (email) => this.auth.sendPasswordResetEmail(email);
 }
 
 export default Firebase;
