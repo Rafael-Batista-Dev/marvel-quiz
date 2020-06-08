@@ -1,10 +1,13 @@
 import React from "react";
+import Logout from "../Logout";
+import Quiz from "../Quiz";
 
 const Welcome = () => {
   return (
     <div className="quiz-bg">
       <div className="container">
-        <h1>Seja bem vindo</h1>
+        <Logout />
+        <Quiz />
       </div>
     </div>
   );
