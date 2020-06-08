@@ -1,11 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Quiz = () => {
-  return (
-    <div>
-      <h2>Quiz</h2>
-    </div>
-  );
-};
+class Quiz extends Component {
+  //console.log(props.userData.apelido);
+
+  render() {
+    const { apelido } = this.props.userData;
+
+    return (
+      <div>
+        <h2>Apelido: {apelido}</h2>
+      </div>
+    );
+  }
+}
 
 export default Quiz;
