@@ -172,7 +172,10 @@ class Quiz extends Component {
     ) : (
       <Fragment>
         <Levels />
-        <ProgressBar />
+        <ProgressBar
+          idQuestion={this.state.idQuestion}
+          maxQuestions={this.state.maxQuestions}
+        />
         <h2>{this.state.question}</h2>
         {displayOptions}
         <button
@@ -180,7 +183,9 @@ class Quiz extends Component {
           onClick={this.nextQuestion}
           className="btnSubmit"
         >
-          Enviar
+          {this.state.idQuestion < this.state.maxQuestions - 1
+            ? "Enviar Resposta"
+            : "Terminar"}
         </button>
       </Fragment>
     );
