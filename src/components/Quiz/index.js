@@ -16,7 +16,10 @@ class Quiz extends Component {
     idQuestion: 0,
     btnDisabled: true,
     userAnswer: null,
+    score: 0,
   };
+
+  storedDataRef = React.createRef();
 
   loadQuestions = (quizz) => {
     //console.log(level);
@@ -26,6 +29,10 @@ class Quiz extends Component {
     //console.log(fetchedArrayQuiz);
 
     if (fetchedArrayQuiz.length >= this.state.maxQuestions) {
+      this.storedDataRef.current = fetchedArrayQuiz;
+
+      //console.log(this.storedDataRef.current);
+
       const newArray = fetchedArrayQuiz.map(
         ({ answer, ...keepRest }) => keepRest
       );
@@ -52,6 +59,15 @@ class Quiz extends Component {
         options: this.state.storedQuestions[this.state.idQuestion].options,
       });
     }
+
+    if (this.state.idQuestion !== prevState.idQuestion) {
+      this.setState({
+        question: this.state.storedQuestions[this.state.idQuestion].question,
+        options: this.state.storedQuestions[this.state.idQuestion].options,
+        userAnswer: null,
+        btnDisabled: true,
+      });
+    }
   }
 
   submitAnswer = (selectedAnswer) => {
@@ -59,6 +75,22 @@ class Quiz extends Component {
       userAnswer: selectedAnswer,
       btnDisabled: false,
     });
+  };
+
+  nextQuestion = () => {
+    if (this.state.idQuestion === this.state.maxQuestions - 1) {
+    } else {
+      this.setState((prevState) => ({
+        idQuestion: prevState.idQuestion + 1,
+      }));
+    }
+    const goodanswer = this.storedDataRef.current[this.state.idQuestion].answer;
+
+    if (this.state.userAnswer === goodanswer) {
+      this.setState((prevState) => ({
+        score: prevState.score + 1,
+      }));
+    }
   };
 
   render() {
@@ -84,7 +116,11 @@ class Quiz extends Component {
         <ProgressBar />
         <h2>{this.state.question}</h2>
         {displayOptions}
-        <button disabled={this.state.btnDisabled} className="btnSubmit">
+        <button
+          disabled={this.state.btnDisabled}
+          onClick={this.nextQuestion}
+          className="btnSubmit"
+        >
           Enviar
         </button>
       </div>
