@@ -1,7 +1,12 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { QuizMarvel } from "../quizMarvel";
 import ProgressBar from "../ProgressBar";
 import Levels from "../Levels";
+
+toast.configure();
 
 class Quiz extends Component {
   //console.log(props.userData.apelido);
@@ -17,6 +22,7 @@ class Quiz extends Component {
     btnDisabled: true,
     userAnswer: null,
     score: 0,
+    showMsgWelcome: false,
   };
 
   storedDataRef = React.createRef();
@@ -45,6 +51,24 @@ class Quiz extends Component {
     }
   };
 
+  showMsgWelcome = (apelido) => {
+    if (!this.state.showMsgWelcome) {
+      this.setState({
+        showMsgWelcome: true,
+      });
+
+      toast.warn(`Bem vindo ${apelido}, boa sorte! 🚀`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
   componentDidMount() {
     this.loadQuestions(this.state.levelNames[this.state.quizLevel]);
   }
@@ -68,6 +92,10 @@ class Quiz extends Component {
         btnDisabled: true,
       });
     }
+
+    if (this.props.userData.apelido) {
+      this.showMsgWelcome(this.props.userData.apelido);
+    }
   }
 
   submitAnswer = (selectedAnswer) => {
@@ -90,6 +118,26 @@ class Quiz extends Component {
       this.setState((prevState) => ({
         score: prevState.score + 1,
       }));
+
+      toast.success("Ótimo você pontuou +1", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error("Errado você pontuou", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
