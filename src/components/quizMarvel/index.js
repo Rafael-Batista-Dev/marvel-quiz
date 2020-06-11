@@ -5,7 +5,7 @@ export const QuizMarvel = [
     topic:
       "Aplicação de Quiz, com perguntas da Marvel desenvolvida com React JS",
     quizz: {
-      beginner: [
+      iniciante: [
         {
           id: 0,
           question: "A qual time o Iceman pertence?",
@@ -103,7 +103,7 @@ export const QuizMarvel = [
           heroId: 1009662,
         },
       ],
-      confirme: [
+      moderado: [
         {
           id: 0,
           question: "Quem é Logan nos quadrinhos da Marvel Comics 'X-Men'?",
@@ -197,7 +197,7 @@ export const QuizMarvel = [
           heroId: 1009281,
         },
       ],
-      expert: [
+      especialista: [
         {
           id: 0,
           question:
