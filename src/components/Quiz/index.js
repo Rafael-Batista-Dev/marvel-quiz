@@ -61,7 +61,7 @@ class Quiz extends Component {
 
       toast.warn(`Bem vindo ${apelido}, boa sorte! 🚀`, {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -117,7 +117,7 @@ class Quiz extends Component {
 
       toast.success("Ótimo você pontuou +1", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -127,7 +127,7 @@ class Quiz extends Component {
     } else {
       toast.error("Errado você pontuou", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -167,8 +167,8 @@ class Quiz extends Component {
       );
     });
 
-    return this.state.quizEnd ? (
-      <QuizOver />
+    return !this.state.quizEnd ? (
+      <QuizOver ref={this.storedDataRef} toto="toto" />
     ) : (
       <Fragment>
         <Levels />
