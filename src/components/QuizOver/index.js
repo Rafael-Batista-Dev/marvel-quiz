@@ -4,6 +4,8 @@ const QuizOver = React.forwardRef((props, ref) => {
   //console.log(props);
   //console.log(ref);
 
+  const { levelNames, score, maxQuestions, quizLevel, percent } = props;
+
   const [asked, setAsked] = useState([]);
   //console.log(asked);
 
@@ -11,28 +13,71 @@ const QuizOver = React.forwardRef((props, ref) => {
     setAsked(ref.current);
   }, [ref]);
 
-  const questionAnswer = asked.map((question) => {
-    return (
-      <tr key={question.id}>
-        <td>{question.question}</td>
-        <td>{question.answer}</td>
-        <td>
-          <button className="btnInfo"> Mais </button>
+  const averageGrade = maxQuestions / 2;
+
+  const decision =
+    score >= averageGrade ? (
+      <Fragment>
+        <div className="stepsBtnContainer">
+          {quizLevel < levelNames.length ? (
+            <Fragment>
+              <p className="successMsg">Muito bem, vá para o próximo nível!</p>
+              <button className="btnResult success">Próximo nível</button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <p className="successMsg">Muito bem, você é um especialista!</p>
+              <button className="btnResult success">Início</button>
+            </Fragment>
+          )}
+        </div>
+
+        <div className="percentage">
+          <div className="progressPercent">Aproveitamento: {percent}%</div>
+          <div className="progressPercent">
+            Nota: {score}/{maxQuestions}{" "}
+          </div>
+        </div>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <div className="stepsBtnContainer">
+          <p className="failureMsg">Você falhou !</p>
+        </div>
+
+        <div className="percentage">
+          <div className="progressPercent">Aproveitamento: {percent} %</div>
+          <div className="progressPercent">
+            Nota: {score}/{maxQuestions}
+          </div>
+        </div>
+      </Fragment>
+    );
+
+  const questionAnswer =
+    score >= averageGrade ? (
+      asked.map((question) => {
+        return (
+          <tr key={question.id}>
+            <td>{question.question}</td>
+            <td>{question.answer}</td>
+            <td>
+              <button className="btnInfo"> Mais </button>
+            </td>
+          </tr>
+        );
+      })
+    ) : (
+      <tr>
+        <td colSpan="3">
+          <p style={{ textAlign: "center", color: "red" }}>Sem respostas</p>
         </td>
       </tr>
     );
-  });
 
   return (
     <Fragment>
-      <div className="stepsBtnContainer">
-        <p className="successMsg">Muito bem, você é um especialista!</p>
-        <button className="btnResult success"> Tentar novamente</button>
-      </div>
-      <div className="percentage">
-        <div className="progressPercent">Sucesso: 100%</div>
-        <div className="progressPercent">Nota: 10/10</div>
-      </div>
+      {decision}
       <hr />
 
       <p>As respostas para as perguntas feitas:</p>
