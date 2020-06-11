@@ -54,7 +54,7 @@ class Quiz extends Component {
         storedQuestions: newArray,
       });
     } else {
-      console.log("mais questoes");
+      //console.log("mais questoes");
     }
   };
 
@@ -106,6 +106,15 @@ class Quiz extends Component {
       });
     }
 
+    if (this.state.quizEnd !== prevState.quizEnd) {
+      //console.log(this.state.score);
+      const gradepercent = this.getPercent(
+        this.state.maxQuestions,
+        this.state.score
+      );
+      this.gameOver(gradepercent);
+    }
+
     if (this.props.userData.apelido !== prevProps.userData.apelido) {
       this.showMsgToast(this.props.userData.apelido);
     }
@@ -113,7 +122,10 @@ class Quiz extends Component {
 
   nextQuestion = () => {
     if (this.state.idQuestion === this.state.maxQuestions - 1) {
-      this.gameOver();
+      //this.gameOver();
+      this.setState({
+        quizEnd: true,
+      });
     } else {
       this.setState((prevState) => ({
         idQuestion: prevState.idQuestion + 1,
@@ -157,22 +169,15 @@ class Quiz extends Component {
 
   getPercent = (maxQuest, ourScore) => (ourScore / maxQuest) * 100;
 
-  gameOver = () => {
-    const gradepercent = this.getPercent(
-      this.state.maxQuestions,
-      this.state.score
-    );
-
-    if (gradepercent >= 50) {
+  gameOver = (percent) => {
+    if (percent >= 50) {
       this.setState({
         quizLevel: this.state.quizLevel + 1,
-        percent: gradepercent,
-        quizEnd: true,
+        percent,
       });
     } else {
       this.setState({
-        percent: gradepercent,
-        quizEnd: true,
+        percent,
       });
     }
   };
