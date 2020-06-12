@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { GiTrophyCup } from "react-icons/gi";
 
 const QuizOver = React.forwardRef((props, ref) => {
   //console.log(props);
@@ -43,7 +44,9 @@ const QuizOver = React.forwardRef((props, ref) => {
             </Fragment>
           ) : (
             <Fragment>
-              <p className="successMsg">Muito bem, você é um especialista!</p>
+              <p className="successMsg">
+                <GiTrophyCup size="42px" /> Muito bem, você é um especialista!
+              </p>
               <button
                 onClick={() => loadLevelQuestions(0)}
                 className="btnResult success"

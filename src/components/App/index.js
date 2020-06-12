@@ -9,20 +9,23 @@ import Signup from "../Signup";
 import ErrorPage from "../ErrorPage";
 import ForgetPassword from "../ForgetPassword";
 import "../../App.css";
+import { IconContext } from "react-icons";
 
 function App() {
   return (
     <Router>
-      <Header />
+      <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
+        <Header />
 
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <Route path="/painel" component={Painel} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/forget-password" component={ForgetPassword} />
-        <Route component={ErrorPage} />
-      </Switch>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route path="/painel" component={Painel} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/forget-password" component={ForgetPassword} />
+          <Route component={ErrorPage} />
+        </Switch>
+      </IconContext.Provider>
     </Router>
   );
 }

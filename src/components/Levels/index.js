@@ -21,7 +21,7 @@ const Levels = ({ levelNames, quizLevel }) => {
         size={42}
         circleTop={0}
         steps={levels}
-        activeStep={1}
+        activeStep={quizLevel}
         circleFontSize={20}
         barStyle={"dashed"}
         activeColor={"#ff385c"}

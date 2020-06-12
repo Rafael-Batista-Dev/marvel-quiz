@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { FaChevronRight } from "react-icons/fa";
 import { QuizMarvel } from "../quizMarvel";
 import ProgressBar from "../ProgressBar";
 import Levels from "../Levels";
@@ -200,6 +200,7 @@ class Quiz extends Component {
           }`}
           onClick={() => this.submitAnswer(option)}
         >
+          <FaChevronRight />
           {option}
         </p>
       );
