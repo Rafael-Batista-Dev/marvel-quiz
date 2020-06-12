@@ -9,28 +9,30 @@ import QuizOver from "../QuizOver";
 
 toast.configure();
 
+const initialState = {
+  quizLevel: 0,
+  maxQuestions: 10,
+  storedQuestions: [],
+  question: null,
+  options: [],
+  idQuestion: 0,
+  btnDisabled: true,
+  userAnswer: null,
+  score: 0,
+  showMsgWelcome: false,
+  quizEnd: false,
+  percent: null,
+};
+
+const levelNames = ["iniciante", "moderado", "especialista"];
+
 class Quiz extends Component {
   //console.log(props.userData.apelido);
 
   constructor(props) {
     super(props);
 
-    this.initialState = {
-      levelNames: ["iniciante", "moderado", "especialista"],
-      quizLevel: 0,
-      maxQuestions: 10,
-      storedQuestions: [],
-      question: null,
-      options: [],
-      idQuestion: 0,
-      btnDisabled: true,
-      userAnswer: null,
-      score: 0,
-      showMsgWelcome: false,
-      quizEnd: false,
-    };
-
-    this.state = this.initialState;
+    this.state = initialState;
     this.storedDataRef = React.createRef();
   }
 
@@ -53,8 +55,6 @@ class Quiz extends Component {
       this.setState({
         storedQuestions: newArray,
       });
-    } else {
-      //console.log("mais questoes");
     }
   };
 
@@ -77,41 +77,42 @@ class Quiz extends Component {
   };
 
   componentDidMount() {
-    this.loadQuestions(this.state.levelNames[this.state.quizLevel]);
+    this.loadQuestions(levelNames[this.state.quizLevel]);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const {
+      maxQuestions,
+      storedQuestions,
+      idQuestion,
+      score,
+      quizEnd,
+    } = this.state;
     if (
-      this.state.storedQuestions !== prevState.storedQuestions &&
-      this.state.storedQuestions.length
+      storedQuestions !== prevState.storedQuestions &&
+      storedQuestions.length
     ) {
       //console.log(this.state.storedQuestions[this.state.idQuestion].question);
       //console.log(this.state.storedQuestions[this.state.idQuestion].options);
 
       this.setState({
-        question: this.state.storedQuestions[this.state.idQuestion].question,
-        options: this.state.storedQuestions[this.state.idQuestion].options,
+        question: storedQuestions[idQuestion].question,
+        options: storedQuestions[idQuestion].options,
       });
     }
 
-    if (
-      this.state.idQuestion !== prevState.idQuestion &&
-      this.state.storedQuestions.length
-    ) {
+    if (idQuestion !== prevState.idQuestion && storedQuestions.length) {
       this.setState({
-        question: this.state.storedQuestions[this.state.idQuestion].question,
-        options: this.state.storedQuestions[this.state.idQuestion].options,
+        question: storedQuestions[idQuestion].question,
+        options: storedQuestions[idQuestion].options,
         userAnswer: null,
         btnDisabled: true,
       });
     }
 
-    if (this.state.quizEnd !== prevState.quizEnd) {
+    if (quizEnd !== prevState.quizEnd) {
       //console.log(this.state.score);
-      const gradepercent = this.getPercent(
-        this.state.maxQuestions,
-        this.state.score
-      );
+      const gradepercent = this.getPercent(maxQuestions, score);
       this.gameOver(gradepercent);
     }
 
@@ -183,20 +184,33 @@ class Quiz extends Component {
   };
 
   loadLevelQuestions = (param) => {
-    this.setState({ ...this.initialState, quizLevel: param });
+    this.setState({ ...initialState, quizLevel: param });
 
-    this.loadQuestions(this.state.levelNames[param]);
+    this.loadQuestions(levelNames[param]);
   };
 
   render() {
     //const { apelido } = this.props.userData;
 
-    const displayOptions = this.state.options.map((option, index) => {
+    const {
+      quizLevel,
+      maxQuestions,
+      question,
+      options,
+      idQuestion,
+      btnDisabled,
+      userAnswer,
+      score,
+      quizEnd,
+      percent,
+    } = this.state;
+
+    const displayOptions = options.map((option, index) => {
       return (
         <p
           key={index}
           className={`answerOptions ${
-            this.state.userAnswer === option ? "selected" : null
+            userAnswer === option ? "selected" : null
           }`}
           onClick={() => this.submitAnswer(option)}
         >
@@ -206,37 +220,29 @@ class Quiz extends Component {
       );
     });
 
-    return this.state.quizEnd ? (
+    return quizEnd ? (
       <QuizOver
         ref={this.storedDataRef}
-        levelNames={this.state.levelNames}
-        score={this.state.score}
-        maxQuestions={this.state.maxQuestions}
-        quizLevel={this.state.quizLevel}
-        percent={this.state.percent}
+        levelNames={levelNames}
+        score={score}
+        maxQuestions={maxQuestions}
+        quizLevel={quizLevel}
+        percent={percent}
         loadLevelQuestions={this.loadLevelQuestions}
       />
     ) : (
       <Fragment>
-        <Levels
-          levelNames={this.state.levelNames}
-          quizLeve={this.state.quizLevel}
-        />
+        <Levels levelNames={levelNames} quizLeve={quizLevel} />
 
-        <ProgressBar
-          idQuestion={this.state.idQuestion}
-          maxQuestions={this.state.maxQuestions}
-        />
-        <h2>{this.state.question}</h2>
+        <ProgressBar idQuestion={idQuestion} maxQuestions={maxQuestions} />
+        <h2>{question}</h2>
         {displayOptions}
         <button
-          disabled={this.state.btnDisabled}
+          disabled={btnDisabled}
           onClick={this.nextQuestion}
           className="btnSubmit"
         >
-          {this.state.idQuestion < this.state.maxQuestions - 1
-            ? "Enviar Resposta"
-            : "Terminar"}
+          {idQuestion < maxQuestions - 1 ? "Enviar Resposta" : "Terminar"}
         </button>
       </Fragment>
     );
