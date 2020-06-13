@@ -80,6 +80,10 @@ const QuizOver = React.forwardRef((props, ref) => {
     setLoading(true);
   };
 
+  const capitalizeFirestletter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   if (score < averageGrade) {
     setTimeout(() => loadLevelQuestions(quizLevel), 3000);
     //setTimeout(() => loadLevelQuestions(0), 3000);
@@ -172,10 +176,45 @@ const QuizOver = React.forwardRef((props, ref) => {
         <h2>{characterInf.data.results[0].name}</h2>
       </div>
       <div className="modalBody">
-        <h3>adad</h3>
+        <div className="comicImage">
+          <img
+            src={
+              characterInf.data.results[0].thumbnail.path +
+              "." +
+              characterInf.data.results[0].thumbnail.extension
+            }
+            alt={characterInf.data.results[0].name}
+          />
+
+          <p>{characterInf.attributionText}</p>
+        </div>
+        <div className="comicDetails">
+          <h3>Descrição</h3>
+          {characterInf.data.results[0].description ? (
+            <p>{characterInf.data.results[0].description}</p>
+          ) : (
+            <p>Descrição indisponível ...</p>
+          )}
+          <h3>Mais informações</h3>
+          {characterInf.data.results[0].urls &&
+            characterInf.data.results[0].urls.map((url, index) => {
+              return (
+                <a
+                  key={index}
+                  href={url.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {capitalizeFirestletter(url.type)}
+                </a>
+              );
+            })}
+        </div>
       </div>
       <div className="modalFooter">
-        <button className="modalBtn">Close</button>
+        <button onClick={hideModal} className="modalBtn">
+          Sair
+        </button>
       </div>
     </Fragment>
   ) : (
