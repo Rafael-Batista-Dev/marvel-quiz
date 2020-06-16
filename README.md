@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="MarvelQuiz" title="#MarvelQuiz" src="./github-assets/marvel-quiz.gif" />
+    <img alt="MarvelQuiz" width= '80%' title="#MarvelQuiz" src="https://github.com/Rafael-Batista-Dev/marvel-quiz/blob/master/assets/marvel.png" />
 </h1>
 
 <h4 align="center"> 
@@ -24,7 +24,7 @@
 O layout da aplicação está disponível em gif:
 
 <p align="center" width= '90%'>
-<img alt="MarvelQuiz" title="#MarvelQuiz" src="./github-assets/marvel-quiz.gif" />
+<img alt="MarvelQuiz" title="#MarvelQuiz" src="https://github.com/Rafael-Batista-Dev/marvel-quiz/blob/master/assets/marvel-quiz.gif" />
 </p>
 
 ## 🛠 Tecnologias
